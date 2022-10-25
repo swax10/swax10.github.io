@@ -450,124 +450,98 @@ EOF
 				cd bfill
 				touch bfill.c
 				cat > bfill.c << EOF
-#include <math.h>
-#include <GL/glut.h>
-
-struct Point {
-	GLint x;
-	GLint y;
-};
-
-struct Color {
-	GLfloat r;
-	GLfloat g;
-	GLfloat b;
-};
-
-void init() {
-	glClearColor(1.0, 1.0, 1.0, 0.0);
-	glColor3f(0.0, 0.0, 0.0);
-	glPointSize(1.0);
-	glMatrixMode(GL_PROJECTION);
-	glLoadIdentity();
-	gluOrtho2D(0, 640, 0, 480);
-}
-
-Color getPixelColor(GLint x, GLint y) {
-	Color color;
-	glReadPixels(x, y, 1, 1, GL_RGB, GL_FLOAT, &color);
-	return color;
-}
-
-void setPixelColor(GLint x, GLint y, Color color) {
-	glColor3f(color.r, color.g, color.b);
-	glBegin(GL_POINTS);
-	glVertex2i(x, y);
-	glEnd();
-	glFlush();
-
-}
-
-void BoundaryFill(int x, int y, Color fillColor, Color boundaryColor) {
-	Color currentColor = getPixelColor(x, y);
-	if(currentColor.r != boundaryColor.r && currentColor.g != boundaryColor.g && currentColor.b != boundaryColor.b) {
-		setPixelColor(x, y, fillColor);
-		BoundaryFill(x+1, y, fillColor, boundaryColor);
-		BoundaryFill(x-1, y, fillColor, boundaryColor);
-		BoundaryFill(x, y+1, fillColor, boundaryColor);
-		BoundaryFill(x, y-1, fillColor, boundaryColor);
-	}
-}
-
-void onMouseClick(int button, int state, int x, int y)
+#include<GL/glut.h>
+float x1,x2,x3,x4,Y1,y2,y3,y4; void draw_pixel(int x,int y)
 {
-	Color fillColor = {1.0f, 0.0f, 0.0f};		// red color will be filled
-	Color boundaryColor = {0.0f, 0.0f, 0.0f}; // black- boundary
-
-	Point p = {321, 241}; // a point inside the square
-
-	BoundaryFill(p.x, p.y, fillColor, boundaryColor);
+glColor3f(0.0,0.0,0.0); glPointSize(1.0); glBegin(GL_POINTS); glVertex2i(x,y); glEnd();
 }
 
-void draw_dda(Point p1, Point p2) {
-	GLfloat dx = p2.x - p1.x;
-	GLfloat dy = p2.y - p1.y;
-
-	GLfloat x1 = p1.x;
-	GLfloat y1 = p1.y;
-
-	GLfloat step = 0;
-
-	if(abs(dx) > abs(dy)) {
-		step = abs(dx);
-	} else {
-		step = abs(dy);
-	}
-
-	GLfloat xInc = dx/step;
-	GLfloat yInc = dy/step;
-
-	for(float i = 1; i <= step; i++) {
-		glVertex2i(x1, y1);
-		x1 += xInc;
-		y1 += yInc;
-	}
-}
-
-void draw_square(Point a, GLint length) {
-	Point b = {a.x + length, a.y},
-		c = {b.x,	b.y+length},
-		d = {c.x-length, c.y};
-
-	draw_dda(a, b);
-	draw_dda(b, c);
-	draw_dda(c, d);
-	draw_dda(d, a);	
-}
-
-void display(void) {
-	Point pt = {320, 240};
-	GLfloat length = 50;
-
-	glClear(GL_COLOR_BUFFER_BIT);
-	glBegin(GL_POINTS);
-		draw_square(pt, length);
-	glEnd();
-	glFlush();
-}
-
-int main(int argc, char** argv)
+void edgedetect(float x1,float Y1,float x2,float y2,int *le,int *re)
 {
-	glutInit(&argc, argv);
-	glutInitDisplayMode(GLUT_SINGLE|GLUT_RGB);
-	glutInitWindowSize(640, 480);
-	glutInitWindowPosition(200, 200);
-	glutCreateWindow("Open GL");
-	init();
-	glutDisplayFunc(display);
-	glutMouseFunc(onMouseClick);
-	glutMainLoop();
-	return 0;
+float temp,x,mx; int i;
+
+if(Y1>y2)
+{
+temp=x1,x1=x2,x2=temp; 
+temp=Y1,Y1=y2,y2=temp;
+}
+
+if(Y1==y2) 
+mx=x2-x1;
+else
+mx=(x2-x1)/(y2-Y1); 
+x=x1;
+for(i=Y1;i<=y2;i++)
+{
+if(x<(float)le[i]) 
+le[i]=(int)x;
+if(x>(float)re[i]) 
+re[i]=(int)x; 
+x+=mx;
+}
+}
+
+void scanfill(float x1,float Y1,float x2,float y2,float x3,float y3,float x4,float y4)
+{
+int le[500],re[500],i,j;
+
+for(i=0;i<500;i++) 
+le[i]=500,re[i]=0;
+
+
+edgedetect(x1,Y1,x2,y2,le,re); 
+edgedetect(x2,y2,x3,y3,le,re); 
+edgedetect(x3,y3,x4,y4,le,re); 
+edgedetect(x4,y4,x1,Y1,le,re);
+
+for(j=0;j<500;j++)
+{
+if(le[j]<=re[j])
+for(i=le[j];i<re[j];i++) 
+draw_pixel(i,j);
+}
+}
+
+
+void display()
+{
+x1=250.0;Y1=200.0;
+x2=150.0;y2=300.0;
+x3=250.0; y3=400.0;
+x4=350.0;y4=300.0;
+glClear(GL_COLOR_BUFFER_BIT); 
+glClearColor(1.0,1.0,1.0,1.0);
+glColor3f(0.0,0.0,1.0); 
+glBegin(GL_LINE_LOOP); 
+glVertex2f(x1,Y1); 
+glVertex2f(x2,y2); 
+glVertex2f(x3,y3); 
+glVertex2f(x4,y4);
+glEnd(); 
+scanfill(x1,Y1,x2,y2,x3,y3,x4,y4);
+glFlush();
+}
+
+
+void init()
+{
+glClearColor(1.0,1.0,1.0,1.0); 
+glMatrixMode(GL_PROJECTION); 
+glLoadIdentity(); 
+glOrtho(0.0,499.0,0.0,499.0,0,500);
+}
+
+int main(int argc,char **argv)
+{
+glutInit(&argc,argv); 
+glutInitDisplayMode(GLUT_SINGLE|GLUT_RGB); 
+glutInitWindowSize(500,500);
+
+glutCreateWindow("Filling"); 
+glutDisplayFunc(display);
+
+init(); 
+glutMainLoop();
 }
 EOF
 		g++ bfill.c -lGL -lGLU -lglut -lm
