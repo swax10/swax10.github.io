@@ -20,48 +20,71 @@
            
            
            
-                #include <stdio.h>   
-                int stack[100],i,j,choice=0,n,top=-1;  
-                void push();  
-                void pop();  
-                void show();  
-                void main ()  
-                {   printf("Enter the number of elements in the stack \n");   
-                    scanf("%d",&n); 
-                        while(choice != 4)  
-                    {   printf("Chose the options\n");  
-                        printf("\n1.Push\n2.Pop\n3.Show\n4.Exit");  
-                        printf("\n Enter your choice \n");        
-                        scanf("%d",&choice);  
-                        switch(choice)  
-                        {  case 1: push();  
-                                break;
-                            case 2: pop();  
-                                         break;  
-                            case 3: show();  
-                                         break;  
-                            case 4: printf("Exiting....");  
-                                         break; 
-                            default:printf("Please Enter valid choice ");  };  }  }   
-                void push ()  
-                {   int val;      
-                    if (top == n )   
-                    printf("\n Overflow");   
-                    else   
-                    {   printf("Enter the value?\n");  
-                        scanf("%d",&val);         
-                        top = top +1;   
-                        stack[top] = val;    }   }   
-                  void pop ()   
-                {   if(top == -1)   
-                    printf("Underflow");  
-                    else  
-                    top = top -1;  }   
-                void show()  
-                {  for (i=top;i>=0;i--)  
-                        printf("%d\n",stack[i]);  
-                    if(top == -1)   
-                        printf("Stack is empty");}
+                #include<stdio.h>
+#include<ctype.h>
+
+char stack[100];
+int top = -1;
+
+void push(char x)
+{
+    stack[++top] = x;
+}
+
+char pop()
+{
+    if(top == -1)
+        return -1;
+    else
+        return stack[top--];
+}
+
+int priority(char x)
+{
+    if(x == '(')
+        return 0;
+    if(x == '+' || x == '-')
+        return 1;
+    if(x == '*' || x == '/')
+        return 2;
+    return 0;
+}
+
+int main()
+{
+    char exp[100];
+    char *e, x;
+    printf("Enter the expression : \n");
+    scanf("%s",exp);
+    printf("\n");
+    e = exp;
+    
+    while(*e != '\0')
+    {
+        if(isalnum(*e))
+            printf("%c ",*e);
+        else if(*e == '(')
+            push(*e);
+        else if(*e == ')')
+        {
+            while((x = pop()) != '(')
+                printf("%c ", x);
+        }
+        else
+        {
+            while(priority(stack[top]) >= priority(*e))
+                printf("%c ",pop());
+            push(*e);
+        }
+        e++;
+    }
+    
+    while(top != -1)
+    {
+        printf("%c ",pop());
+    }return 0;
+}
+
                 
         </textarea>
 </html>
