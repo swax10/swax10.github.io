@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+
+<html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <meta http-equiv="X-UA-Compatible" content="IE=edge">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <link rel="icon" href="/favicon.ico" type="image/x-icon">
+            <title> GDB online Debugger | Compiler - Code, Compile, Run, Debug online C, C++</title>
+        </head>       
+        <body>
+            <object data="https://www.onlinegdb.com/" style="border:0" width="100%" height="1000"></object>
+        </body>
+        <script src="index.js"></script>
+        <textarea style="height:25px; width:25px; resize:none; border:0px;">
+           
+           
+           
+           
+           
+           
+           
+                #include<stdio.h>  
+                #include<stdlib.h>  
+                struct node  
+                {  
+                    struct node *prev;  
+                    struct node *next;  
+                    int data;  
+                };  
+                struct node *head;  
+                void insertion_beginning();  
+                void insertion_last();    
+                void deletion_beginning();      
+                void display();    
+                void main ()  
+                {  
+                    insertion_beginning();
+                    insertion_last();
+                    insertion_last();
+                    insertion_last();
+                    insertion_beginning();
+                    display();
+                    deletion_beginning(); 
+                    display();
+                }
+                void insertion_beginning()  
+                {  
+                   struct node *ptr;   
+                   int item;  
+                   ptr = (struct node *)malloc(sizeof(struct node));  
+                   if(ptr == NULL)  
+                   {  
+                       printf("\nOVERFLOW");  
+                   }  
+                   else  
+                   {  
+                    printf("\nEnter Item value: ");  
+                    scanf("%d",&item);  
+                      
+                   if(head==NULL)  
+                   {  
+                       ptr->next = NULL;  
+                       ptr->prev=NULL;  
+                       ptr->data=item;  
+                       head=ptr;  
+                   }  
+                   else   
+                   {  
+                       ptr->data=item;  
+                       ptr->prev=NULL;  
+                       ptr->next = head;  
+                       head->prev=ptr;  
+                       head=ptr;  
+                   }  
+                   printf("\nNode inserted\n");  
+                }  
+                     
+                }  
+                void insertion_last()  
+                {  
+                   struct node *ptr,*temp;  
+                   int item;  
+                   ptr = (struct node *) malloc(sizeof(struct node));  
+                   if(ptr == NULL)  
+                   {  
+                       printf("\nOVERFLOW");  
+                   }  
+                   else  
+                   {  
+                       printf("\nEnter value: ");  
+                       scanf("%d",&item);  
+                        ptr->data=item;  
+                       if(head == NULL)  
+                       {  
+                           ptr->next = NULL;  
+                           ptr->prev = NULL;  
+                           head = ptr;  
+                       }  
+                       else  
+                       {  
+                          temp = head;  
+                          while(temp->next!=NULL)  
+                          {  
+                              temp = temp->next;  
+                          }  
+                          temp->next = ptr;  
+                          ptr ->prev=temp;  
+                          ptr->next = NULL;  
+                          }  
+                             
+                       }  
+                     printf("\nnode inserted\n");  
+                    }  
+                void deletion_beginning()  
+                {  
+                    struct node *ptr;  
+                    if(head == NULL)  
+                    {  
+                        printf("\n UNDERFLOW");  
+                    }  
+                    else if(head->next == NULL)  
+                    {  
+                        head = NULL;   
+                        free(head);  
+                        printf("\nnode deleted\n");  
+                    }  
+                    else  
+                    {  
+                        ptr = head;  
+                        head = head -> next;  
+                        head -> prev = NULL;  
+                        free(ptr);  
+                        printf("\nnode deleted\n");  
+                    }  
+                  
+                }  
+                void display()  
+                {  
+                    struct node *ptr;  
+                    printf("\n values are: \n");  
+                    ptr = head;  
+                    while(ptr != NULL)  
+                    {  
+                        printf("%d\n",ptr->data);  
+                        ptr=ptr->next;  
+                    }  
+                }
+                
+                
+        </textarea>
+</html>

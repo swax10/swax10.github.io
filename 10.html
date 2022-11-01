@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+
+<html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <meta http-equiv="X-UA-Compatible" content="IE=edge">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <link rel="icon" href="/favicon.ico" type="image/x-icon">
+            <title> GDB online Debugger | Compiler - Code, Compile, Run, Debug online C, C++</title>
+        </head>       
+        <body>
+            <object data="https://www.onlinegdb.com/" style="border:0" width="100%" height="1000"></object>
+        </body>
+        <script src="index.js"></script>
+        <textarea style="height:25px; width:25px; resize:none; border:0px;">
+           
+           
+           
+           
+           
+           
+           
+                #include <stdio.h>
+                #include <conio.h>
+                #include <stdlib.h>
+                struct node
+                {
+                 struct node *left;
+                 int data;
+                 struct node *right;
+                };
+                void inorder(struct node *);
+                void insert(int);
+                struct node * minValueNode(struct node *);
+                struct node * Delete(struct node * , int);
+                struct node *root=NULL;
+                int main()
+                {
+                insert(10);
+                insert(20);
+                insert(30);
+                insert(40);
+                printf("\n INORDER TRAVERSAL\n");
+                inorder(root);
+                root=Delete(root,20);
+                printf("\n INORDER TRAVERSAL\n");
+                inorder(root);
+                root=Delete(root,120);
+                getch();
+                return(0);
+                }
+                void insert(int v)
+                {
+                 struct node *r,*p,*t;
+                 r= (struct node *)malloc(sizeof(struct node));
+                 r->data=v;
+                 r->left=NULL;
+                 r->right=NULL;
+                 if(root==NULL)
+                    root=r;
+                 else
+                 {
+                   t=root;
+                   while(t!=NULL)
+                   {
+                     p=t;
+                
+                     if(v<t->data)
+                      t=t->left;
+                     else
+                      t=t->right;
+                   }
+                
+                   if(v<p->data)
+                      p->left=r;
+                     else
+                      p->right=r;
+                 }
+                }
+                void inorder(struct node *t)
+                {
+                     if(t!=NULL)
+                    {
+                     inorder(t->left);
+                     printf("%d  ",t->data);
+                     inorder(t->right);
+                    }
+                }
+                
+                struct node* Delete(struct node * T, int x)
+                {
+                      struct node *temp;
+                      if (T == NULL)
+                       {
+                     printf("\nElement not found");
+                     return (T);
+                       }
+                       if (x< T->data)
+                      {
+                    T->left = Delete(T->left, x);
+                     return (T);
+                      }
+                
+                      if (x> T->data)
+                       {
+                    T->right = Delete(T->right, x);
+                     return (T);
+                       }
+                    if (T->left==NULL && T->right==NULL)
+                    {
+                      temp=T;
+                      free(temp);
+                      return(NULL);
+                    }
+                        if (T->left == NULL)
+                       {
+                       temp=T;
+                       T=T->right;
+                       free(temp);
+                       return(T);
+                    }
+                        if (T->right == NULL)
+                       {
+                       temp=T;
+                       T=T->left;
+                       free(temp);
+                       return(T);
+                    }
+                
+                       temp = minValueNode(T->right);
+                       T->data=temp->data;
+                       T->right = Delete(T->right, temp->data);
+                       return (T);
+                }
+                
+                struct node * minValueNode(struct node *T)
+                {
+                    while (T->left != NULL)
+                        T = T->left;
+                       return (T);
+                }
+                
+                
+        </textarea>
+</html>
