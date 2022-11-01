@@ -21,104 +21,105 @@
            
            
                 #include<stdio.h>
-                #include<conio.h>
+#include<conio.h>
+
+struct queue
+{
+    int a[5];
+    int front;
+    int rear;
+    
+};
+
+void insert(struct queue*,int);
+int empty(struct queue*);
+int full(struct queue*);
+int del(struct queue*);
+
+int main()
+{
+    struct queue s;
+    int c,v;
+    s.front=s.rear=-1;
+    
+    do 
+    {
+        printf("\n\n-------Menu-------\n1.Insert\n2.Delete\n3.Exit\nPlease select an operation :");
+        scanf("%d",&c);
+        switch(c)
+        {
+            case 1:
+            if(full(&s))
+                printf("Queue is Full.");
+            else
+            {
+                printf("Enter an element to be inserted :");
+                scanf("%d",&v);
+                insert(&s,v);
                 
-                struct queue
-                {
-                    int a[5];
-                    int front;
-                    int rear;
-                    
-                };
+            }
+            break;
+            
+            
+            case 2:
+            if(empty(&s))
+                printf("Queue is Empty.");
+            else
+            {
+                v=del(&s);
+                printf("Element Deleted : %d",v);
                 
-                void insert(struct queue*,int);
-                int empty(struct queue*);
-                int full(struct queue*);
-                int del(struct queue*);
-                
-                int main()
-                {
-                    struct queue s;
-                    int c,v;
-                    s.front=s.rear=-1;
-                    
-                    do 
-                    {
-                        printf("\n\n-------Menu-------\n1.Insert\n2.Delete\n3.Exit\nPlease select an operation :");
-                        scanf("%d",&c);
-                        switch(c)
-                        {
-                            case 1:
-                            if(full(&s))
-                                printf("Queue is Full.");
-                            else
-                            {
-                                printf("Enter an element to be inserted :");
-                                scanf("%d",&v);
-                                insert(&s,v);
-                                
-                            }
-                            break;
-                            
-                            
-                            case 2:
-                            if(empty(&s))
-                                printf("Queue is Empty.");
-                            else
-                            {
-                                v=del(&s);
-                                printf("Element Deleted : %d",v);
-                                
-                            }
-                            break;
-                            
-                            
-                            default :
-                            printf("Please select a proper Operation:");
-                            break;
-                            
-                            
-                        }
-                        
-                        
-                        
-                    }while(c!=3);
-                    
-                    getch();
-                    return 0;
-                }
-                
-                void insert(struct queue*z,int v)
-                {
-                    (z->rear)++;
-                    z->a[z->rear]=v;
-                    if(z->front==-1)
-                        z->front=0;
-                        
-                }
-                
-                int del(struct queue*z)
-                {
-                    int d;
-                    d=z->a[z->front];
-                    if(z->front==z->rear)
-                        z->front=z->rear=-1;
-                    else
-                        (z->front)++;
-                    return(d);
-                    
-                }
-                
-                int full(struct queue*z)
-                {
-                    return(z->rear==4);
-                }
-                
-                
-                int empty(struct queue*z)
-                {
-                    return(z->front==-1);
-                }
+            }
+            break;
+            
+            
+            default :
+            printf("Please select a proper Operation:");
+            break;
+            
+            
+        }
+        
+        
+        
+    }while(c!=3);
+    
+    getch();
+    return 0;
+}
+
+void insert(struct queue*z,int v)
+{
+    (z->rear)++;
+    z->a[z->rear]=v;
+    if(z->front==-1)
+        z->front=0;
+        
+}
+
+int del(struct queue*z)
+{
+    int d;
+    d=z->a[z->front];
+    if(z->front==z->rear)
+        z->front=z->rear=-1;
+    else
+        (z->front)++;
+    return(d);
+    
+}
+
+int full(struct queue*z)
+{
+    return(z->rear==4);
+}
+
+
+int empty(struct queue*z)
+{
+    return(z->front==-1);
+}
+
                 
                 
         </textarea>
