@@ -20,105 +20,84 @@
            
            
            
-                #include<stdio.h>
-#include<conio.h>
-
-struct queue
-{
-    int a[5];
-    int front;
-    int rear;
-    
-};
-
-void insert(struct queue*,int);
-int empty(struct queue*);
-int full(struct queue*);
-int del(struct queue*);
-
-int main()
-{
-    struct queue s;
-    int c,v;
-    s.front=s.rear=-1;
-    
-    do 
-    {
-        printf("\n\n-------Menu-------\n1.Insert\n2.Delete\n3.Exit\nPlease select an operation :");
-        scanf("%d",&c);
-        switch(c)
-        {
-            case 1:
-            if(full(&s))
-                printf("Queue is Full.");
-            else
-            {
-                printf("Enter an element to be inserted :");
-                scanf("%d",&v);
-                insert(&s,v);
-                
-            }
-            break;
-            
-            
-            case 2:
-            if(empty(&s))
-                printf("Queue is Empty.");
-            else
-            {
-                v=del(&s);
-                printf("Element Deleted : %d",v);
-                
-            }
-            break;
-            
-            
-            default :
-            printf("Please select a proper Operation:");
-            break;
-            
-            
-        }
-        
-        
-        
-    }while(c!=3);
-    
-    getch();
-    return 0;
-}
-
-void insert(struct queue*z,int v)
-{
-    (z->rear)++;
-    z->a[z->rear]=v;
-    if(z->front==-1)
-        z->front=0;
-        
-}
-
-int del(struct queue*z)
-{
-    int d;
-    d=z->a[z->front];
-    if(z->front==z->rear)
-        z->front=z->rear=-1;
-    else
-        (z->front)++;
-    return(d);
-    
-}
-
-int full(struct queue*z)
-{
-    return(z->rear==4);
-}
-
-
-int empty(struct queue*z)
-{
-    return(z->front==-1);
-}
+                #include<stdio.h> 
+#include<conio.h> 
+#define n 100 
+struct que 
+{ 
+int f,r; 
+int queue[n]; 
+}q; 
+void add(); 
+void del(); 
+void display(); 
+void main() 
+{ 
+char choice;
+int option; 
+clrscr(); 
+q.f=-1; 
+q.r=-1; 
+do 
+ { 
+ printf("1.ADD\n"); 
+ printf("2.DELETE\n"); 
+ printf("3.DISPLAY\n"); 
+ printf("Enter your option\n");  scanf("%d",&option); 
+ switch(option) 
+{ 
+ case 1:add(); 
+ break; 
+ case 2:del(); 
+ break; 
+ case 3:display(); 
+ break; 
+ default:printf("Invalid Option\n"); } 
+printf("Press 'Y' to continue\n"); choice=getch(); 
+ } 
+while(choice=='Y' || choice=='y'); } 
+void add() 
+{ 
+int x; 
+if(q.r==n-1) 
+printf("Queue Overflow\n"); 
+else 
+{ 
+printf("Enter value to be added\n"); scanf("%d",&x); 
+q.r++;
+q.queue[q.r]=x; 
+if(q.r==0) 
+q.f++; 
+printf("Value added successfully\n"); } 
+} 
+void del() 
+{ 
+int x; 
+if(q.f==-1) 
+ printf("Queue Underflow\n"); 
+ else 
+ { 
+ x=q.queue[q.f]; 
+ printf("Value Deleted=%d\n",x);  if(q.f==q.r) 
+ { 
+ q.f=-1; 
+ q.r=-1; 
+ } 
+ else 
+ q.f++; 
+ } 
+} 
+void display() 
+{ 
+int i; 
+if(q.f==-1) 
+ printf("Queue Underflow\n"); 
+ else 
+ for(i=q.f;i<=q.r;i++) 
+ { 
+ printf("%d\t",q.queue[i]); 
+ }
+} 
 
                 
                 
