@@ -1,6 +1,10 @@
 #!/bin/bash
 #sudo apt install opengl* freeglut*
-#sudo apt install gcc
+#Can't locate package opengl* freeglut* ?
+#sudo apt-get install opengl* freeglut*
+#sudo apt install g++
+#If it fails, update terminal and try again
+#sudo apt update && sudo apt upgrade
 #export DISPLAY=:0
 if [ $1 = "basic" ];
 then	
