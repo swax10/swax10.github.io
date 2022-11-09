@@ -1,5 +1,7 @@
 #!/bin/bash
-
+#sudo apt install opengl* freeglut*
+#sudo apt install gcc
+#export DISPLAY=:0
 if [ $1 = "basic" ];
 then	
 	mkdir basic
