@@ -20,48 +20,42 @@
            
            
            
-                #include <stdio.h>   
-                int stack[100],i,j,choice=0,n,top=-1;  
-                void push();  
-                void pop();  
-                void show();  
-                void main ()  
-                {   printf("Enter the number of elements in the stack \n");   
-                    scanf("%d",&n); 
-                        while(choice != 4)  
-                    {   printf("Chose the options\n");  
-                        printf("\n1.Push\n2.Pop\n3.Show\n4.Exit");  
-                        printf("\n Enter your choice \n");        
-                        scanf("%d",&choice);  
-                        switch(choice)  
-                        {  case 1: push();  
-                                break;
-                            case 2: pop();  
-                                         break;  
-                            case 3: show();  
-                                         break;  
-                            case 4: printf("Exiting....");  
-                                         break; 
-                            default:printf("Please Enter valid choice ");  };  }  }   
-                void push ()  
-                {   int val;      
-                    if (top == n )   
-                    printf("\n Overflow");   
-                    else   
-                    {   printf("Enter the value?\n");  
-                        scanf("%d",&val);         
-                        top = top +1;   
-                        stack[top] = val;    }   }   
-                  void pop ()   
-                {   if(top == -1)   
-                    printf("Underflow");  
-                    else  
-                    top = top -1;  }   
-                void show()  
-                {  for (i=top;i>=0;i--)  
-                        printf("%d\n",stack[i]);  
-                    if(top == -1)   
-                        printf("Stack is empty");}
+                // Insertion sort in C
+
+#include <stdio.h>
+
+// Function to print an array
+void printArray(int array[], int size) {
+  for (int i = 0; i < size; i++) {
+    printf("%d ", array[i]);
+  }
+  printf("\n");
+}
+
+void insertionSort(int array[], int size) {
+  for (int step = 1; step < size; step++) {
+    int key = array[step];
+    int j = step - 1;
+
+    // Compare key with each element on the left of it until an element smaller than
+    // it is found.
+    // For descending order, change key<array[j] to key>array[j].
+    while (key < array[j] && j >= 0) {
+      array[j + 1] = array[j];
+      --j;
+    }
+    array[j + 1] = key;
+  }
+}
+
+// Driver code
+int main() {
+  int data[] = {9, 5, 1, 4, 3};
+  int size = sizeof(data) / sizeof(data[0]);
+  insertionSort(data, size);
+  printf("Sorted array in ascending order:\n");
+  printArray(data, size);
+}
                 
         </textarea>
 </html>
