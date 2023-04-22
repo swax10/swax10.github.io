@@ -20,131 +20,55 @@
            
            
            
-                #include<stdio.h>  
-                #include<stdlib.h>  
-                struct node  
-                {  
-                    struct node *prev;  
-                    struct node *next;  
-                    int data;  
-                };  
-                struct node *head;  
-                void insertion_beginning();  
-                void insertion_last();    
-                void deletion_beginning();      
-                void display();    
-                void main ()  
-                {  
-                    insertion_beginning();
-                    insertion_last();
-                    insertion_last();
-                    insertion_last();
-                    insertion_beginning();
-                    display();
-                    deletion_beginning(); 
-                    display();
+            #include<stdio.h>
+                #include<conio.h>
+                #include<math.h>
+                int a[30],count=0;
+                int place(int pos) {
+                int i;
+                for (i=1;i<pos;i++) {
+                if((a[i]==a[pos])||(( abs (a[i]-a[pos])==abs(i-pos))))
+                return 0;
                 }
-                void insertion_beginning()  
-                {  
-                   struct node *ptr;   
-                   int item;  
-                   ptr = (struct node *)malloc(sizeof(struct node));  
-                   if(ptr == NULL)  
-                   {  
-                       printf("\nOVERFLOW");  
-                   }  
-                   else  
-                   {  
-                    printf("\nEnter Item value: ");  
-                    scanf("%d",&item);  
-                      
-                   if(head==NULL)  
-                   {  
-                       ptr->next = NULL;  
-                       ptr->prev=NULL;  
-                       ptr->data=item;  
-                       head=ptr;  
-                   }  
-                   else   
-                   {  
-                       ptr->data=item;  
-                       ptr->prev=NULL;  
-                       ptr->next = head;  
-                       head->prev=ptr;  
-                       head=ptr;  
-                   }  
-                   printf("\nNode inserted\n");  
-                }  
-                     
-                }  
-                void insertion_last()  
-                {  
-                   struct node *ptr,*temp;  
-                   int item;  
-                   ptr = (struct node *) malloc(sizeof(struct node));  
-                   if(ptr == NULL)  
-                   {  
-                       printf("\nOVERFLOW");  
-                   }  
-                   else  
-                   {  
-                       printf("\nEnter value: ");  
-                       scanf("%d",&item);  
-                        ptr->data=item;  
-                       if(head == NULL)  
-                       {  
-                           ptr->next = NULL;  
-                           ptr->prev = NULL;  
-                           head = ptr;  
-                       }  
-                       else  
-                       {  
-                          temp = head;  
-                          while(temp->next!=NULL)  
-                          {  
-                              temp = temp->next;  
-                          }  
-                          temp->next = ptr;  
-                          ptr ->prev=temp;  
-                          ptr->next = NULL;  
-                          }  
-                             
-                       }  
-                     printf("\nnode inserted\n");  
-                    }  
-                void deletion_beginning()  
-                {  
-                    struct node *ptr;  
-                    if(head == NULL)  
-                    {  
-                        printf("\n UNDERFLOW");  
-                    }  
-                    else if(head->next == NULL)  
-                    {  
-                        head = NULL;   
-                        free(head);  
-                        printf("\nnode deleted\n");  
-                    }  
-                    else  
-                    {  
-                        ptr = head;  
-                        head = head -> next;  
-                        head -> prev = NULL;  
-                        free(ptr);  
-                        printf("\nnode deleted\n");  
-                    }  
-                  
-                }  
-                void display()  
-                {  
-                    struct node *ptr;  
-                    printf("\n values are: \n");  
-                    ptr = head;  
-                    while(ptr != NULL)  
-                    {  
-                        printf("%d\n",ptr->data);  
-                        ptr=ptr->next;  
-                    }  
+                return 1;
+                }
+                void print_sol(int n) {
+                int i,j;
+                count++;
+                printf("\n\nSolution #%d:\n",count);
+                for (i=1;i<=n;i++) {
+                for (j=1;j<=n;j++) {
+                if(a[i]==j)
+                printf("Q\t"); else
+                printf("*\t");
+                }
+                printf("\n");
+                }
+                }
+                void queen(int n) {
+                int k=1;
+                a[k]=0;
+                while(k!=0) {
+                a[k]=a[k]+1;
+                while((a[k]<=n)&&!place(k))
+                a[k]++;
+                if(a[k]<=n) {
+                if(k==n)
+                print_sol(n); else {
+                k++;
+                a[k]=0;
+                }
+                } else
+                k--;
+                }
+                }
+                void main() {
+                int i,n;
+                printf("Enter the number of Queens\n");
+                scanf("%d",&n);
+                queen(n);
+                printf("\nTotal solutions=%d",count);
+                getch();
                 }
                 
                 
