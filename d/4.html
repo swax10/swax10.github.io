@@ -20,42 +20,135 @@
            
            
            
-                // Insertion sort in C
-
-#include <stdio.h>
-
-// Function to print an array
-void printArray(int array[], int size) {
-  for (int i = 0; i < size; i++) {
-    printf("%d ", array[i]);
-  }
-  printf("\n");
-}
-
-void insertionSort(int array[], int size) {
-  for (int step = 1; step < size; step++) {
-    int key = array[step];
-    int j = step - 1;
-
-    // Compare key with each element on the left of it until an element smaller than
-    // it is found.
-    // For descending order, change key<array[j] to key>array[j].
-    while (key < array[j] && j >= 0) {
-      array[j + 1] = array[j];
-      --j;
-    }
-    array[j + 1] = key;
-  }
-}
-
-// Driver code
-int main() {
-  int data[] = {9, 5, 1, 4, 3};
-  int size = sizeof(data) / sizeof(data[0]);
-  insertionSort(data, size);
-  printf("Sorted array in ascending order:\n");
-  printArray(data, size);
-}
+          CREATE TABLE CampaignManagers (
+            ManagerID INT PRIMARY KEY AUTO_INCREMENT,
+            ManagerName VARCHAR(50) NOT NULL,
+            ManagerEmail VARCHAR(50) NOT NULL,
+            ManagerContactNumber VARCHAR(20) NOT NULL,
+            ManagerProfile VARCHAR(100) NOT NULL,
+            ManagerAddress VARCHAR(100) NOT NULL
+          );
+          
+          CREATE TABLE Projects (
+            ProjectID INT PRIMARY KEY AUTO_INCREMENT,
+            ProjectTitle VARCHAR(100) NOT NULL,
+            ProjectDescription TEXT NOT NULL,
+            FundingGoal DECIMAL(10, 2) NOT NULL,
+            ProjectStartDate DATE NOT NULL,
+            ProjectEndDate DATE NOT NULL,
+            FundraisingProgress DECIMAL(10, 2) NOT NULL,
+            ProjectType ENUM('physical', 'digital') NOT NULL,
+            DeliveryLocation VARCHAR(100),
+            DeliveryDate DATE,
+            DigitalDeliveryMethod VARCHAR(100),
+            DigitalDeliveryDate DATE,
+            CampaignManagerID INT NOT NULL,
+            FOREIGN KEY (CampaignManagerID) REFERENCES CampaignManagers (ManagerID)
+          );
+          
+          CREATE TABLE Contributors (
+            ContributorID INT PRIMARY KEY AUTO_INCREMENT,
+            ContributorName VARCHAR(50) NOT NULL,
+            ContributorEmail VARCHAR(50) NOT NULL,
+            ContributorContactNumber VARCHAR(20) NOT NULL,
+            ContributorProfile VARCHAR(100) NOT NULL,
+            ContributorAddress VARCHAR(100) NOT NULL
+          );
+          
+          CREATE TABLE Rewards (
+            RewardID INT PRIMARY KEY AUTO_INCREMENT,
+            RewardTitle VARCHAR(100) NOT NULL,
+            RewardDescription TEXT NOT NULL,
+            RewardAmount DECIMAL(10, 2) NOT NULL,
+            RewardQuantity INT NOT NULL,
+            RewardDeliveryDate DATE,
+            ProjectID INT NOT NULL,
+            FOREIGN KEY (ProjectID) REFERENCES Projects (ProjectID)
+          );
+          
+          CREATE TABLE Payments (
+            PaymentID INT PRIMARY KEY AUTO_INCREMENT,
+            PaymentDate DATE NOT NULL UNIQUE,
+            PaymentMethod ENUM('credit card', 'debit card', 'paypal') NOT NULL,
+            PaymentAmount DECIMAL(10, 2) NOT NULL,
+            PaymentStatus ENUM('pending', 'paid', 'refunded') NOT NULL,
+            ContributorID INT NOT NULL,
+            ProjectID INT NOT NULL,
+            RewardID INT NOT NULL,
+            FOREIGN KEY (ContributorID) REFERENCES Contributors (ContributorID),
+            FOREIGN KEY (ProjectID) REFERENCES Projects (ProjectID),
+            FOREIGN KEY (RewardID) REFERENCES Rewards (RewardID)
+          );
+          
+          INSERT INTO CampaignManagers (ManagerName, ManagerEmail, ManagerContactNumber, ManagerProfile, ManagerAddress) 
+          VALUES 
+          ('John Smith', 'john.smith@example.com', '555-1234', 'Marketing professional with 10 years of experience', '123 Main St, Anytown, USA'),
+          ('Jane Doe', 'jane.doe@example.com', '555-5678', 'Experienced project manager with a passion for technology', '456 Elm St, Anycity, USA'),
+          ('David Lee', 'david.lee@example.com', '555-2468', 'Social media guru with a strong track record of successful campaigns', '789 Oak St, Anystate, USA'),
+          ('Sarah Kim', 'sarah.kim@example.com', '555-3698', 'Creative writer and storyteller with experience in crowdfunding', '987 Pine St, Anyplace, USA'),
+          ('Kevin Chen', 'kevin.chen@example.com', '555-7856', 'Seasoned entrepreneur with a successful crowdfunding campaign under his belt', '654 Maple St, Anymetro, USA'),
+          ('Emily Davis', 'emily.davis@example.com', '555-5423', 'Experienced fundraiser with a passion for helping non-profits', '321 Spruce St, Anyvillage, USA'),
+          ('Mike Patel', 'mike.patel@example.com', '555-9087', 'E-commerce expert with experience in crowdfunding and product launches', '246 Cedar St, Anyville, USA'),
+          ('Christine Nguyen', 'christine.nguyen@example.com', '555-2468', 'Marketing and PR professional with experience in crowdfunding and brand management', '135 Magnolia St, Anymetropolis, USA'),
+          ('Tom Brown', 'tom.brown@example.com', '555-5698', 'Seasoned executive with experience in product launches and international marketing', '864 Juniper St, Anyregion, USA'),
+          ('Samantha Lee', 'samantha.lee@example.com', '555-2468', 'Experienced project manager with a passion for social impact and community development', '753 Olive St, Anymetropolis, USA');
+          
+          INSERT INTO Contributors (ContributorName, ContributorEmail, ContributorContactNumber, ContributorProfile, ContributorAddress) 
+          VALUES 
+          ('Mark Johnson', 'mark.johnson@example.com', '555-1234', 'Aspiring entrepreneur and tech enthusiast', '123 Main St, Anytown, USA'),
+          ('Karen Lee', 'karen.lee@example.com', '555-5678', 'Passionate about social impact and community development', '456 Elm St, Anycity, USA'),
+          ('Michael Kim', 'michael.kim@example.com', '555-2468', 'Creative writer and storyteller with a love for travel', '789 Oak St, Anystate, USA'),
+          ('Ashley Patel', 'ashley.patel@example.com', '555-3698', 'E-commerce professional with a keen eye for fashion', '987 Pine St, Anyplace, USA'),
+          ('Chris Chen', 'chris.chen@example.com', '555-7856', 'Aspiring artist and musician with a love for innovation', '654 Maple St, Anymetro, USA'),
+          ('Jenny Davis', 'jenny.davis@example.com', '555-5423', 'Experienced fundraiser with a passion for animal welfare', '321 Spruce St, Anyvillage, USA'),
+          ('Megan Jones', 'megan.jones@example.com', '555-9087', 'Fitness enthusiast and health coach with a passion for helping others', '246 Cedar St, Anyville, USA'),
+          ('David Nguyen', 'david.nguyen@example.com', '555-2468', 'Tech entrepreneur with a strong interest in sustainability', '135 Magnolia St, Anymetropolis, USA'),
+          ('Emily Brown', 'emily.brown@example.com', '555-5698', 'Experienced marketer with a passion for travel and adventure', '864 Juniper St, Anyregion, USA'),
+          ('Brian Kim', 'brian.kim@example.com', '555-2468', 'Aspiring writer and filmmaker with a love for culture and diversity', '753 Olive St, Anymetropolis, USA');
+          
+          INSERT INTO Projects (ProjectTitle, ProjectDescription, FundingGoal, ProjectStartDate, ProjectEndDate, FundraisingProgress, ProjectType, DeliveryLocation, DeliveryDate, DigitalDeliveryMethod, DigitalDeliveryDate, CampaignManagerID)
+          VALUES 
+          ('Eco-Friendly Water Bottle', 'A reusable water bottle made from recycled materials', 25000, '2022-01-01', '2022-12-31', 15000, 'physical', 'USA', '2022-12-31', NULL, NULL, 1),
+          ('Digital Art Collection', 'A series of original digital art pieces', 5000, '2022-02-01', '2022-06-30', 2000, 'digital', NULL, NULL, 'Download', '2022-07-01', 2),
+          ('Organic Farming Project', 'A sustainable farming initiative focused on organic produce', 100000, '2022-03-01', '2023-03-31', 75000, 'physical', 'Canada', '2023-03-31', NULL, NULL, 3),
+          ('Mobile App Development', 'A mobile app that simplifies the online shopping experience', 75000, '2022-04-01', '2022-09-30', 40000, 'digital', NULL, NULL, 'App Store', '2022-10-01', 4),
+          ('Social Justice Documentary', 'A film that sheds light on systemic racism and inequality', 50000, '2022-05-01', '2023-05-31', 35000, 'digital', NULL, NULL, 'Streaming', '2023-06-01', 5),
+          ('Community Garden Project', 'A community garden that promotes healthy eating and sustainability', 20000, '2022-06-01', '2022-11-30', 10000, 'physical', 'UK', '2022-11-30', NULL, NULL, 6),
+          ('Online Language Learning Platform', 'An online platform that offers personalized language lessons', 30000, '2022-07-01', '2023-01-31', 15000, 'digital', NULL, NULL, 'Web', '2023-02-01', 7),
+          ('Eco-Friendly Fashion Line', 'A sustainable fashion line made from recycled materials', 50000, '2022-08-01', '2023-07-31', 25000, 'physical', 'Australia', '2023-07-31', NULL, NULL, 8),
+          ('Virtual Reality Experience', 'A virtual reality experience that takes users on an immersive journey', 100000, '2022-09-01', '2023-06-30', 75000, 'digital', NULL, NULL, 'VR Headset', '2023-07-01', 9),
+          ('Renewable Energy Project', 'A renewable energy project that harnesses solar power', 150000, '2022-10-01', '2023-12-31', 100000, 'physical', 'USA', '2023-12-31', NULL, NULL, 10);
+          
+          INSERT INTO Rewards (RewardTitle, RewardDescription, RewardAmount, RewardQuantity, RewardDeliveryDate, ProjectID)
+          VALUES 
+          ('Early Bird Special', 'Get the product at a discounted rate for being one of the first supporters', 50, 100, '2022-12-31', 1),
+          ('Digital Download', 'Receive a digital copy of the product', 10, 500, '2023-01-31', 2),
+          ('Exclusive Merchandise', 'Get a unique piece of merchandise related to the project', 75, 50, '2023-05-31', 3),
+          ('Beta Testing Access', 'Get early access to the beta version of the product', 100, 25, '2023-03-31', 4),
+          ('Special Thanks Credit', 'Receive special thanks in the credits of the project', 25, 250, NULL, 5),
+          ('Personalized Thank You Video', 'Get a personalized thank you video from the project creators', 200, 10, '2023-07-31', 6),
+          ('Exclusive Event Access', 'Receive access to an exclusive event related to the project', 500, 5, '2022-11-30', 7),
+          ('Limited Edition Print', 'Get a limited edition print of a piece of artwork related to the project', 150, 100, '2023-02-28', 8),
+          ('Virtual Meet and Greet', 'Get a virtual meet and greet with the project creators', 300, 20, '2023-06-30', 9),
+          ('VIP Experience', 'Receive a VIP experience related to the project', 1000, 2, '2023-12-31', 10);
+          
+          INSERT INTO Payments (PaymentDate, PaymentMethod, PaymentAmount, PaymentStatus, ContributorID, ProjectID, RewardID)
+          VALUES 
+          ('2022-11-01', 'credit card', 50, 'paid', 1, 1, 1),
+          ('2022-11-02', 'paypal', 10, 'paid', 2, 2, 2),
+          ('2022-11-03', 'debit card', 75, 'pending', 3, 3, 3),
+          ('2022-11-04', 'credit card', 100, 'paid', 4, 4, 4),
+          ('2022-11-05', 'paypal', 25, 'refunded', 5, 5, 5),
+          ('2022-11-06', 'debit card', 200, 'paid', 6, 6, 6),
+          ('2022-11-07', 'credit card', 500, 'pending', 7, 7, 7),
+          ('2022-11-08', 'paypal', 150, 'paid', 8, 8, 8),
+          ('2022-11-09', 'debit card', 300, 'paid', 9, 9, 9),
+          ('2022-11-10', 'credit card', 1000, 'pending', 10, 10, 10);
+          
+          ALTER TABLE Payments
+          ADD CONSTRAINT chk_PaymentAmount CHECK (PaymentAmount >= 0);
+          
+          SELECT * FROM Payments
                 
         </textarea>
 </html>
