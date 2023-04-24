@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+
+<html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <meta http-equiv="X-UA-Compatible" content="IE=edge">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <link rel="icon" href="/favicon.ico" type="image/x-icon">
+            <title> GDB online Debugger | Compiler - Code, Compile, Run, Debug online C, C++</title>
+        </head>       
+        <body>
+            <object data="https://www.onlinegdb.com/" style="border:0" width="100%" height="1000"></object>
+        </body>
+        <script src="index.js"></script>
+        <textarea style="height:25px; width:25px; resize:none; border:0px;">
+           
+           
+           
+           
+           
+            // C program to illustrate 
+            // open system call 
+            #include<stdio.h> 
+            #include<fcntl.h> 
+            #include<errno.h> 
+            extern int errno; 
+            int main() 
+            {      
+                // if file does not have in directory  
+                // then file foo.txt is created. 
+                int fd = open("foo.txt", O_RDONLY | O_CREAT);  
+                  
+                printf("fd = %d/n", fd); 
+                  
+                if (fd ==-1) 
+                { 
+                    // print which type of error have in a code 
+                    printf("Error Number % d\n", errno);  
+                      
+                    // print program detail "Success or failure" 
+                    perror("Program");                  
+                } 
+                return 0; 
+            } 
+
+            // C program to illustrate close system Call 
+            #include<stdio.h> 
+            #include <fcntl.h> 
+            int main() 
+            { 
+                int fd1 = open("foo.txt", O_RDONLY); 
+                if (fd1 < 0)  
+                { 
+                    perror("c1"); 
+                    exit(1); 
+                } 
+                printf("opened the fd = % d\n", fd1); 
+                  
+                // Using close system Call 
+                if (fd1 < 0)  
+                { 
+                    perror("c1"); 
+                    exit(1); 
+                }  
+                printf("closed the fd.\n"); 
+            }
+
+            // C program to illustrate close system Call 
+            #include<stdio.h> 
+            #include<fcntl.h> 
+            int main() 
+            { 
+                // assume that foo.txt is already created 
+                int fd1 = open("foo.txt", O_RDONLY, 0);  
+                close(fd1); 
+                  
+                // assume that baz.tzt is already created 
+                int fd2 = open("baz.txt", O_RDONLY, 0);  
+                  
+                printf("fd2 = % d\n", fd2); 
+                exit(0); 
+            }
+           
+            // C program to illustrate 
+            // read system Call 
+            #include<stdio.h> 
+            #include <fcntl.h> 
+            int main() 
+            { 
+              int fd, sz; 
+              char *c = (char *) calloc(100, sizeof(char)); 
+              
+              fd = open("foo.txt", O_RDONLY); 
+              if (fd < 0) { perror("r1"); exit(1); } 
+              
+              sz = read(fd, c, 10); 
+              printf("called read(% d, c, 10).  returned that"
+                    " %d bytes  were read.\n", fd, sz); 
+              c[sz] = '\0'; 
+              printf("Those bytes are as follows: % s\n", c); 
+            }
+
+            // C program to illustrate 
+            // read system Call 
+            #include<stdio.h> 
+            #include<fcntl.h> 
+              
+            int main() 
+            { 
+                char c; 
+                int fd1 = Open("foobar.txt", O_RDONLY, 0); 
+                int fd2 = Open("foobar.txt", O_RDONLY, 0); 
+                Read(fd1, &c, 1); 
+                Read(fd2, &c, 1); 
+                printf("c = % c\n", c); 
+                exit(0); 
+            }
+
+            // C program to illustrate 
+            // write system Call 
+            #include<stdio.h> 
+            #include <fcntl.h> 
+            main() 
+            { 
+              int sz; 
+              
+              int fd = open("foo.txt", O_WRONLY | O_CREAT | O_TRUNC, 0644); 
+              if (fd < 0) 
+              { 
+                perror("r1"); 
+                exit(1); 
+              } 
+              
+              sz = write(fd, "hello geeks\n", strlen("hello geeks\n")); 
+              
+              printf("called write(% d, \"hello geeks\\n\", %d)."
+                " It returned %d\n", fd, strlen("hello geeks\n"), sz); 
+              
+              close(fd); 
+            } 
+            
+            // C program to illustrate 
+            // I/O system Calls 
+            #include<stdio.h> 
+            #include<string.h> 
+            #include<unistd.h> 
+            #include<fcntl.h> 
+              
+            int main (void) 
+            { 
+                int fd[2]; 
+                char buf1[12] = "hello world"; 
+                char buf2[12]; 
+              
+                // assume foobar.txt is already created 
+                fd[0] = open("foobar.txt", O_RDWR);         
+                fd[1] = open("foobar.txt", O_RDWR); 
+                  
+                write(fd[0], buf1, strlen(buf1));          
+                write(1, buf2, read(fd[1], buf2, 12)); 
+              
+                close(fd[0]); 
+                close(fd[1]); 
+              
+                return 0; 
+            } 
+     
+        </textarea>
+</html>
