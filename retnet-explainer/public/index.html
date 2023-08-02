@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>RetNet Working</title>
+</head>
+<body>
+<p>Tokenizing Text</p>
+    <form>
+    x = <input id="text" type="text" name="usrname"></br>   
+    <p id="token"></p>
+    <p id="result"></p>
+</form>
+
+<script type="text/javascript">
+        setInterval(countWords, 1);
+function countWords() {
+    var str = document.getElementById("text").value;
+    var words = str.split(" ");
+    document.getElementById("token").innerHTML = "x = " + words;
+    var wordCount = words.length;
+    document.getElementById("result").innerHTML = "n=|x|= " + wordCount;
+}
+</script>
+</body>
+</html>
