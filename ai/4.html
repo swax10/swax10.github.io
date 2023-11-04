@@ -122,13 +122,16 @@ class Graph:
         print('Path does not exist!')
         return None
 
-        adjacency_list = {
-            'A': [('B', 1), ('C', 3), ('D', 7)],
-            'B': [('D', 5)],
-            'C': [('D', 12)]
-}
+adjacency_list = {
+    'A': [('B', 1), ('C', 3), ('D', 7)],
+    'B': [('D', 5)],
+    'C': [('D', 12)]}
+    
 graph1 = Graph(adjacency_list)
 graph1.a_star_algorithm('A', 'D')
+            
+                
+        
             
                 
         </textarea>
