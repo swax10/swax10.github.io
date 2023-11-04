@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+
+<html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <meta http-equiv="X-UA-Compatible" content="IE=edge">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <link rel="icon" href="ai/favicon.ico" type="image/x-icon">
+            <title>SWISH -- SWI-Prolog for SHaring</title>
+        </head>       
+        <body>
+            <object data="https://swish.swi-prolog.org/" style="border:0" width="100%" height="1000"></object>
+        </body>
+        <script src="index.js"></script>
+        <textarea style="height:25px; width:25px; resize:none; border:0px;">
+           
+           
+           
+           
+           
+           
+           
+            female(pammi).
+female(lizza).
+female(patty).
+female(anny).
+male(jimmy).
+male(bobby).
+male(tomy).
+male(pitter).
+parent(pammi,bobby).
+parent(tomy,bobby).
+parent(tomy,lizza).
+parent(bobby,anny).
+parent(bobby,patty).
+parent(patty,jimmy).
+parent(bobby,pitter).
+parent(pitter,jimmy).
+mother(X,Y):- parent(X,Y),female(X).
+father(X,Y):- parent(X,Y),male(X).
+haschild(X):- parent(X,_).
+sister(X,Y):- parent(Z,X),parent(Z,Y),female(X),X\==Y.
+brother(X,Y):-parent(Z,X),parent(Z,Y),male(X),X\==Y.
+                
+        </textarea>
+</html>
