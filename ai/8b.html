@@ -20,6 +20,25 @@
            
            
            
+            % Define facts and rules
+
+% Facts about father-child relationships
+father(john, amy).
+father(john, david).
+father(mark, sarah).
+
+% Rules to determine if two individuals are siblings
+sister(X, Y) :- female(X), parent(Z, X), parent(Z, Y), X \= Y.
+
+% Define genders (you can extend this for more individuals)
+female(amy).
+female(sarah).
+
+% Define parent-child relationships
+parent(john, amy).
+parent(john, david).
+parent(mark, sarah).
+
             female(pammi).
 female(lizza).
 female(patty).
