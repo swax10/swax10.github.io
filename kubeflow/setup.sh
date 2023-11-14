@@ -86,4 +86,4 @@ spec:
                   number: 80
 EOF
 
-kubectl apply -f ngrok-manifest.yaml
+kubectl apply -f ngrok-manifest.yml
