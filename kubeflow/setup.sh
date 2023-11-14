@@ -26,7 +26,7 @@ helm install ngrok-ingress-controller ngrok/kubernetes-ingress-controller \
 	--set credentials.apiKey=$NGROK_API_KEY \
 	--set credentials.authtoken=$NGROK_AUTHTOKEN
 
-touch ngrok-manifest.yaml
+touch ngrok-manifest.yml
 cat << EOF > ngrok-manifest.yml
 # Setup a K8s 2048 Game Example
 # See the guide linked below
