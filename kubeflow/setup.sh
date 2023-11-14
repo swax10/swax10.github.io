@@ -15,10 +15,11 @@ export NGROK_API_KEY=$2
 
 mkdir hello-ngrok
 cd hello-ngrok
-helm repo add ngrok https://ngrok.github.io/kubernetes-ingress-controller
 curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
 chmod 700 get_helm.sh
 ./get_helm.sh
+
+helm repo add ngrok https://ngrok.github.io/kubernetes-ingress-controller
 
 helm install ngrok-ingress-controller ngrok/kubernetes-ingress-controller \
 	--namespace ngrok-ingress-controller \
