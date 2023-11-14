@@ -11,5 +11,5 @@ kubectl wait --for condition=established --timeout=60s crd/applications.app.k8s.
 kubectl apply -k "github.com/kubeflow/pipelines/manifests/kustomize/env/platform-agnostic-pns?ref=$PIPELINE_VERSION"
 
 ngrok config add-authtoken $1
-ngrok http 80
+ngrok http http://localhost:8080
 
