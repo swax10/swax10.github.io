@@ -33,7 +33,7 @@ cat << EOF > ngrok-manifest.yml
 apiVersion: v1
 kind: Service
 metadata:
-  name: AGI
+  name: agi
   namespace: ngrok-ingress-controller
 spec:
   ports:
@@ -41,22 +41,22 @@ spec:
       port: 8080
       targetPort: 8080
   selector:
-    app: AGI
+    app: agi
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: AGI
+  name: agi
   namespace: ngrok-ingress-controller
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: AGI
+      app: agi
   template:
     metadata:
       labels:
-        app: AGI
+        app: agi
     spec:
       containers:
         - name: backend
@@ -69,7 +69,7 @@ spec:
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: AGI-ingress
+  name: agi-ingress
   namespace: ngrok-ingress-controller
 spec:
   ingressClassName: ngrok
@@ -81,7 +81,7 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: AGI
+                name: agi
                 port:
                   number: 80
 EOF
