@@ -9,6 +9,7 @@ export PIPELINE_VERSION=2.0.3
 kubectl apply -k "github.com/kubeflow/pipelines/manifests/kustomize/cluster-scoped-resources?ref=$PIPELINE_VERSION"
 kubectl wait --for condition=established --timeout=60s crd/applications.app.k8s.io
 kubectl apply -k "github.com/kubeflow/pipelines/manifests/kustomize/env/platform-agnostic-pns?ref=$PIPELINE_VERSION"
+
 export NGROK_AUTHTOKEN=$1
 export NGROK_API_KEY=$2
 
@@ -32,30 +33,30 @@ cat << EOF > ngrok-manifest.yml
 apiVersion: v1
 kind: Service
 metadata:
-  name: game-2048
+  name: AGI
   namespace: ngrok-ingress-controller
 spec:
   ports:
     - name: http
-      port: 80
-      targetPort: 80
+      port: 8080
+      targetPort: 8080
   selector:
-    app: game-2048
+    app: AGI
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: game-2048
+  name: AGI
   namespace: ngrok-ingress-controller
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: game-2048
+      app: AGI
   template:
     metadata:
       labels:
-        app: game-2048
+        app: AGI
     spec:
       containers:
         - name: backend
@@ -68,7 +69,7 @@ spec:
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: game-2048-ingress
+  name: AGI-ingress
   namespace: ngrok-ingress-controller
 spec:
   ingressClassName: ngrok
@@ -80,12 +81,9 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: game-2048
+                name: AGI
                 port:
                   number: 80
 EOF
 
 kubectl apply -f ngrok-manifest.yaml
-
-
-
