@@ -17,6 +17,8 @@ export default function Home() {
             className="w-48 h-48 sm:w-72 sm:h-72 rounded-full"
             src="https://avatars.githubusercontent.com/u/110764543?v=4"
             alt="User's Avatar"
+            width={288} // Assuming sm:w-72 and sm:h-72 are the largest sizes, which correspond to 18rem (1rem = 16px, so 18rem = 288px)
+            height={288}
           />
           <div className="flex flex-row justify-center pt-5">
             <CV />
@@ -32,8 +34,8 @@ export default function Home() {
           👋 Hi,
         </h1>
         <p>
-          I’m Shreyas Waghmode, an undergraduate student pursuing Artificial
-          Intelligence and Data Science at
+          I&apos;m Shreyas Waghmode, an undergraduate student pursuing
+          Artificial Intelligence and Data Science at
           <a className="text-red-400 font-bold" href="https://nhitm.ac.in/">
             {" "}
             NHITM
@@ -46,7 +48,7 @@ export default function Home() {
             {" "}
             Dr. Megha V Gupta
           </a>{" "}
-          &
+          &amp;
           <a
             href="https://www.linkedin.com/in/suhas-waghmare-975277131/"
             className="text-red-400 font-bold"
@@ -63,42 +65,52 @@ export default function Home() {
         </p>
         <br />
         <h2 className="text-lg font-semibold text-gray-800 my-4">
-          Here’s a deeper dive into my interests and experiences:
+          Here&apos;s a deeper dive into my interests and experiences:
         </h2>
-        <p>
+        <div>
           <h2 className="text-lg font-semibold text-gray-800">
             Research Focus 🔭:
-          </h2>{" "}
-          My passion lies in Multimodal AI, where I explore the intersection of
-          computer vision, natural language processing, and audio analysis. I'm
-          fascinated by how different modalities can enhance each other, leading
-          to more robust and context-aware AI systems.
-        </p>
-        <p>
+          </h2>
+          <p>
+            My passion lies in Multimodal AI, where I explore the intersection
+            of computer vision, natural language processing, and audio analysis.
+            I&apos;m fascinated by how different modalities can enhance each
+            other, leading to more robust and context-aware AI systems.
+          </p>
+        </div>
+        <div>
           <h2 className="text-lg font-semibold text-gray-800 pt-5">
             Projects 🚀:
           </h2>{" "}
-          Besides my coursework, I've worked on exciting projects. One of them
-          is the MultimodalDataLoader, a tool I developed for efficient data
-          loading in both JAX and PyTorch. It's been a rewarding experience, and
-          I'm always eager to contribute to open-source projects.
-        </p>
-        <p>
+          <p>
+            Besides my coursework, I&apos;ve worked on exciting projects. One of
+            them is the MultimodalDataLoader, a tool I developed for efficient
+            data loading in both JAX and PyTorch. It&apos;s been a rewarding
+            experience, and I&apos;m always eager to contribute to open-source
+            projects.
+          </p>
+        </div>
+        <div>
           <h2 className="text-lg font-semibold text-gray-800 pt-5">
             Languages and Tools 💻 :
           </h2>{" "}
-          I'm proficient in Python (especially with libraries like PyTorch and
-          JAX), but I also have a soft spot for Rust and Haiku. Exploring
-          different programming paradigms keeps me curious and motivated.
-        </p>
-        <p>
+          <p>
+            I&apos;m proficient in Python (especially with libraries like
+            PyTorch and JAX), but I also have a soft spot for Rust and Haiku.
+            Exploring different programming paradigms keeps me curious and
+            motivated.
+          </p>
+        </div>
+        <div>
           <h2 className="text-lg font-semibold text-gray-800 pt-5">
             Gaming Enthusiast 🎮:
           </h2>{" "}
-          When I'm not immersed in code or research papers, you'll find me
-          battling virtual dragons or exploring distant galaxies in video games.
-          Gaming fuels my creativity and problem-solving skills.
-        </p>
+          <p>
+            When I&apos;m not immersed in code or research papers, you&apos;ll
+            find me battling virtual dragons or exploring distant galaxies in
+            video games. Gaming fuels my creativity and problem-solving skills.
+          </p>
+        </div>
 
         <h3 className="text-lg font-semibold text-gray-800 pt-10">
           {" "}
