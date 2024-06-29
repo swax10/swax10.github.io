@@ -3,6 +3,7 @@ import Github from "./components/Github";
 import GoogleScholar from "./components/GoogleScholar";
 import LinkedIn from "./components/LinkedIn";
 import X from "./components/X";
+import Image from "next/image";
 
 export default function Home() {
   return (
@@ -12,10 +13,10 @@ export default function Home() {
           Shreyas Waghmode
         </h1>
         <div>
-          <img
+          <Image
             className="w-48 h-48 sm:w-72 sm:h-72 rounded-full"
             src="https://avatars.githubusercontent.com/u/110764543?v=4"
-            alt=""
+            alt="User's Avatar"
           />
           <div className="flex flex-row justify-center pt-5">
             <CV />
@@ -27,7 +28,9 @@ export default function Home() {
         </div>
       </header>
       <section className="pl-5 sm:pl-10">
-        <h1 className="font-semibold text-gray-800 text-xl sm:text-2xl">👋 Hi,</h1>
+        <h1 className="font-semibold text-gray-800 text-xl sm:text-2xl">
+          👋 Hi,
+        </h1>
         <p>
           I’m Shreyas Waghmode, an undergraduate student pursuing Artificial
           Intelligence and Data Science at
@@ -52,7 +55,11 @@ export default function Home() {
             Asst Prof.Suhas Waghmare
           </a>
           . My research interests revolve around
-          <strong className="text-lg font-semibold text-gray-800"> Multimodal AI</strong>.
+          <strong className="text-lg font-semibold text-gray-800">
+            {" "}
+            Multimodal AI
+          </strong>
+          .
         </p>
         <br />
         <h2 className="text-lg font-semibold text-gray-800 my-4">
@@ -66,7 +73,6 @@ export default function Home() {
           computer vision, natural language processing, and audio analysis. I'm
           fascinated by how different modalities can enhance each other, leading
           to more robust and context-aware AI systems.
-          
         </p>
         <p>
           <h2 className="text-lg font-semibold text-gray-800 pt-5">
@@ -94,7 +100,10 @@ export default function Home() {
           Gaming fuels my creativity and problem-solving skills.
         </p>
 
-        <h3 className="text-lg font-semibold text-gray-800 pt-10"> Research Highlights </h3>
+        <h3 className="text-lg font-semibold text-gray-800 pt-10">
+          {" "}
+          Research Highlights{" "}
+        </h3>
         <table className="table-auto">
           <tbody>
             <tr>
